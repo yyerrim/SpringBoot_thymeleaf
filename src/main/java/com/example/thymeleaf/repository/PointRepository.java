@@ -12,11 +12,11 @@ public interface PointRepository extends JpaRepository<Point, Integer> {
     @Query(nativeQuery = true,
             // value = "SELECT *,"
             //         + " (6371 * acos("
-            //                     + " cos(radians(?1))"
-            //                     + " * cos(radians(lat))"
-            //                     + " * cos(radians(lng) - radians(?2))"
-            //                     + " + sin(radians(?3))"
-            //                     + " * sin(radians(lat)))) AS distance"
+            //                         + " cos(radians(?1))"
+            //                         + " * cos(radians(lat))"
+            //                         + " * cos(radians(lng) - radians(?2))"
+            //                         + " + sin(radians(?3))"
+            //                         + " * sin(radians(lat)))) AS distance"
             //         + " FROM point"
             //         + " WHERE distance <= 10"
             //         + " ORDER BY distance")
@@ -31,4 +31,5 @@ public interface PointRepository extends JpaRepository<Point, Integer> {
                                     + " FROM point)"
                                     + " WHERE distance <= 10")
     public List<Point> findByLatLng(double lat, double lng, double lat2);
+    // findByLatLng(?1 변수, ?2 변수, ?3변수)
 }
