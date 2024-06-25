@@ -1,0 +1,49 @@
+<body>
+    <div id="map" style="width:500px;height:400px;"></div>
+
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ef3904285da7bbb0487b4c68b7228c13"></script>
+
+    <script>
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+        // // 뒤늦게 데이터 요청
+        // async function get() {
+        //     const res = await fetch('/map2/data');
+        //     const list = await res.json();
+        //     for (let i = 0; i < list.length; i++) {
+        //         new kakao.maps.Marker({
+        //             map: map,
+        //             position: new kakao.maps.LatLng(list[i].lat, list[i].lng)
+        //         });
+        //     }
+        // }
+        async function get() {
+            // 현재 내 위치 위도, 경도 정보
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+
+                const res = await fetch(`/map2/data?lat=${lat}&lng=${lng}`);
+                const list = await res.json();
+                for (let i = 0; i < list.length; i++) {
+                    new kakao.maps.Marker({
+                        map: map,
+                        position: new kakao.maps.LatLng(list[i].lat, list[i].lng)
+                    });
+                }
+
+                // 지도 이동시키기
+                map.setCenter(new kakao.maps.LatLng(lat, lng));
+            });
+        }
+        get();
+    </script>
+</body>
+<!-- 일단 껍데기를 보여주고 알맹이는 뒤늦게 받아와서 쓰는거 -->

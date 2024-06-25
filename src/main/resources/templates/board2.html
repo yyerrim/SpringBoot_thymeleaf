@@ -1,0 +1,26 @@
+<body>
+  <table>
+    <tr>
+      <td>번호</td>
+      <td>제목</td>
+      <td>내용</td>
+    </tr>
+    <tr th:each="board : ${list}">
+      <td th:text="${board.id}"></td>
+      <td th:text="${board.title}"></td>
+      <td th:text="${board.content}"></td>
+    </tr>
+  </table>
+
+  <footer id="data"></footer>
+
+  <script>
+    async function get() {
+      const res = await fetch('/board2/data');
+      const data = await res.text();
+      document.querySelector('#data').innerText = data;
+    }
+
+    get();
+  </script>
+</body>

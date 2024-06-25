@@ -1,0 +1,18 @@
+<!-- View Template : Controller 동작 후 HTML 동작 -->
+<body>
+  <table>
+    <tr>
+      <td>번호</td>
+      <td>제목</td>
+      <td>내용</td>
+    </tr>
+    <tr th:each="board : ${list}">
+      <td th:text="${board.id}"></td>
+      <td th:text="${board.title}"></td>
+      <td th:text="${board.content}"></td>
+    </tr>
+  </table>
+
+  <!-- <footer th:text="${data}"></footer> -->
+  <footer th:utext="${data}"></footer>
+</body>

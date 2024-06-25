@@ -1,0 +1,17 @@
+<body>
+  <table>
+    <tr>
+      <td>번호</td>
+      <td>제목</td>
+      <td>내용</td>
+    </tr>
+    <tr th:each="board : ${list}">
+      <td th:text="${board.id}"></td>
+      <td th:text="${board.title}"></td>
+      <!-- <td th:text="${board.content}"></td> -->
+
+      <!-- unescape : 문자 그대로 처리되는게 아니라 JS 코드로 동작 -->
+      <td th:utext="${board.content}"></td>
+    </tr>
+  </table>
+</body>
